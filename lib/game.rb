@@ -12,8 +12,9 @@ class Game
   end
 
   def self.import_board file, seed_probability=0.1, iterations=100
-    file_contents = file.read
-    rows   = file_contents.split(/\r?\n/)
+    board = file.read
+    verify_board board
+    rows   = board.split(/\r?\n/)
     height = rows.length
     width  = rows.first.length
     Game.new(width, height, seed_probability, iterations)
@@ -47,5 +48,30 @@ class Game
 
   def to_s
     @cells.map { |row| row.join }.join("\n")
+  end
+
+  private
+
+  def self.verify_board board
+    rows = board.split(/\r?\n/)
+    # verify rows exist
+    if rows.length.zero?
+      exit_with_error('INVALID BOARD! At least one row must be defined')
+    end
+
+    # verify rows are all the same length
+    unless rows.map(&:length).uniq.count == 1
+      exit_with_error('INVALID BOARD! Rows must all be same length')
+    end
+
+    # verify the characters used are either a space or 'o'
+    if !!board.gsub(/[\\r\\n]+/, "").match(/[^o\s]/)
+      exit_with_error('INVALID BOARD! Cells must be defined using spaces or the letter\'o\'') 
+    end
+  end
+
+  def self.exit_with_error message
+    $stderr.puts(message)
+    exit 2
   end
 end
