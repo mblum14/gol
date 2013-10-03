@@ -27,6 +27,7 @@ class Game
       next!
       system('clear')
       puts self
+      sleep(0.1)
     end
   end
 
