@@ -1,3 +1,7 @@
+unless defined? Cell
+  require File.join(File.dirname(__FILE__), 'cell')
+end
+
 class Game
 
   def initialize(width, height, seed_probability, steps)
