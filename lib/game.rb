@@ -3,6 +3,7 @@ unless defined? Cell
 end
 
 class Game
+  attr_reader :width, :height, :steps
 
   def initialize(width, height, seed_probability, steps)
     @width, @height, @steps = width.to_i, height.to_i, steps.to_i
