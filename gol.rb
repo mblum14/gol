@@ -5,11 +5,12 @@ require File.join(File.dirname(__FILE__), 'lib', 'game')
 
 def usage message
     $stderr.puts(message)
-    $stderr.puts("Usage: #{File.basename($0)}: [-h <height>] [-w <width>] [-p <probability>] [-i <iterations>]")
+    $stderr.puts("Usage: #{File.basename($0)}: [-h <height>] [-w <width>] [-p <probability>] [-i <iterations>] [-f <FILE>]")
     $stderr.puts("  -h <height>           (default 50)the height of the game board")
     $stderr.puts("  -w <width>            (default 100) the width of the game board")
     $stderr.puts("  -p <probability>      (default 0.1) seed probability for generating live and dead cells")
     $stderr.puts("  -i <iterations>       (default 100) number of life cylces")
+    $stderr.puts("  -f <FILE>             provide an existing game board to start with")
     exit 2
 end
 
