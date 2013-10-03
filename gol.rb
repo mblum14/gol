@@ -17,6 +17,7 @@ height      = 50
 width       = 100
 probability = 0.1
 iterations  = 100
+board_file  = nil
 
 loop do
   case ARGV[0]
@@ -24,9 +25,14 @@ loop do
   when '-w' then  ARGV.shift; width = ARGV.shift
   when '-p' then  ARGV.shift; probability = ARGV.shift
   when '-i' then  ARGV.shift; iterations = ARGV.shift
+  when '-f' then  ARGV.shift; board_file = ARGV.shift
   when /^-/ then  usage("Unknown option: #{ARGV[0].inspect}")
   else break
   end
 end
 
-Game.new(width, height, probability, iterations).play!
+if board_file
+  Game.import_board(File.open(board_file), probability, iterations).play!
+else
+  Game.new(width, height, probability, iterations).play!
+end

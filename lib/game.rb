@@ -8,7 +8,7 @@ class Game
   def initialize(width, height, seed_probability, steps)
     @width, @height, @steps = width.to_i, height.to_i, steps.to_i
     @cells = Array.new(@height) {
-      Array.new(@width) { Cell.new(seed_probability) } }
+      Array.new(@width) { Cell.new(seed_probability.to_f) } }
   end
 
   def self.import_board file, seed_probability=0.1, iterations=100
@@ -17,7 +17,9 @@ class Game
     rows   = board.split(/\r?\n/)
     height = rows.length
     width  = rows.first.length
-    Game.new(width, height, seed_probability, iterations)
+    game = Game.new(width, height, seed_probability, iterations)
+    game.seed_cells!(board)
+    return game
   end
 
   def play!
@@ -50,6 +52,17 @@ class Game
     @cells.map { |row| row.join }.join("\n")
   end
 
+  def seed_cells!(board)
+    _cells = Array.new(@height) { Array.new(@width) }
+    board.split(/\r?\n/).each_with_index do |row, y|
+      row.split(//).each_with_index do |cell, x|
+        is_alive = cell=='o' ? 1 : 0
+        _cells[y][x] = Cell.new(is_alive)
+      end
+    end
+    @cells = _cells
+  end
+
   private
 
   def self.verify_board board
@@ -66,7 +79,7 @@ class Game
 
     # verify the characters used are either a space or 'o'
     if !!board.gsub(/[\\r\\n]+/, "").match(/[^o\s]/)
-      exit_with_error('INVALID BOARD! Cells must be defined using spaces or the letter\'o\'') 
+      exit_with_error('INVALID BOARD! A cell must be defined using a space or the letter \'o\'') 
     end
   end
 

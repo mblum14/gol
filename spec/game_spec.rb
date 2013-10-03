@@ -42,7 +42,7 @@ describe Game do
 
       context "that specifies invalid cells" do
         it "should throw an error" do
-          $stderr.should_receive(:puts).with('INVALID BOARD! Cells must be defined using spaces or the letter\'o\'')
+          $stderr.should_receive(:puts).with('INVALID BOARD! A cell must be defined using a space or the letter \'o\'')
           lambda { Game.import_board(invalid_file_3); exit }.should raise_error SystemExit
         end
       end
