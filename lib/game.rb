@@ -11,6 +11,14 @@ class Game
       Array.new(@width) { Cell.new(seed_probability) } }
   end
 
+  def self.import_board file, seed_probability=0.1, iterations=100
+    file_contents = file.read
+    rows   = file_contents.split(/\r?\n/)
+    height = rows.length
+    width  = rows.first.length
+    Game.new(width, height, seed_probability, iterations)
+  end
+
   def play!
     (1..@steps).each do
       next!
