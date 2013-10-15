@@ -22,6 +22,7 @@ board_file  = nil
 
 loop do
   case ARGV[0]
+  when '--help' then usage('')
   when '-h' then  ARGV.shift; height = ARGV.shift
   when '-w' then  ARGV.shift; width = ARGV.shift
   when '-p' then  ARGV.shift; probability = ARGV.shift
