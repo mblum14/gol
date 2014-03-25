@@ -5,25 +5,8 @@ end
 class Game
   attr_reader :width, :height, :steps
 
-  # TODO
-  # 1. refactor using keyword arguments
-  # 2. initialize with either specified dimensions or file
-  def initialize(width, height, seed_probability, steps)
-    @width, @height, @steps = width.to_i, height.to_i, steps.to_i
-    @cells = Array.new(@height) { Array.new(@width) { Cell.new(seed_probability.to_f) } }
-  end
-
-  # TODO
-  # 1. Refactor this functionality into the class initializer
-  def self.import_board file, iterations=100
-    board = file.read
-    verify_board board
-    rows   = board.split(/\r?\n/)
-    height = rows.length
-    width  = rows.first.length
-    game   = Game.new(width, height, 0, iterations)
-    game.seed_cells!(board)
-    return game
+  def initialize(file: nil, width: 100, height: 50, seed_probability: 0.1, steps: 100)
+    file ? import_board!(file, steps) : initialize_board!(width, height, seed_probability, steps)
   end
 
   def play!
@@ -60,8 +43,25 @@ class Game
     @cells.map { |row| row.join }.join("\n")
   end
 
+  private
+
+  def import_board!(file_name, steps)
+    board = File.open(file_name).read
+    verify_board board
+    rows    = board.split(/\r?\n/)
+    @height = rows.length
+    @width  = rows.first.length
+    @steps  = steps
+    seed_cells!(board)
+  end
+
+  def initialize_board!(width, height, steps, seed_probability)
+    @width, @height, @steps = width.to_i, height.to_i, steps.to_i
+    @cells = Array.new(@height) { Array.new(@width) { Cell.new(seed_probability.to_f) } }
+  end
+
   def seed_cells!(board)
-    _cells = Array.new(@height) { Array.new(@width) }
+    _cells = Array.new(height) { Array.new(width) }
     board.split(/\r?\n/).each_with_index do |row, y|
       row.split(//).each_with_index do |cell, x|
         is_alive = cell=='o' ? 1 : 0
@@ -71,9 +71,7 @@ class Game
     @cells = _cells
   end
 
-  private
-
-  def self.verify_board board
+  def verify_board(board)
     rows = board.split(/\r?\n/)
     # verify rows exist
     if rows.length.zero?
@@ -91,7 +89,7 @@ class Game
     end
   end
 
-  def self.exit_with_error message
+  def exit_with_error(message)
     $stderr.puts(message)
     exit 2
   end
