@@ -34,7 +34,7 @@ loop do
 end
 
 if board_file
-  Game.import_board(File.open(board_file), probability, iterations).play!
+  Game.import_board(File.open(board_file), iterations).play!
 else
   Game.new(width, height, probability, iterations).play!
 end
