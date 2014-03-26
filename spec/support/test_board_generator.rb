@@ -4,11 +4,11 @@ end
 
 class TestBoardGenerator
 
-  def initialize(number_of_neighbours)
+  def initialize(number_of_neighbors)
     @alive_and_dead = Array.new(8, ' ')
     @board = ''
 
-    number_of_neighbours.times do
+    number_of_neighbors.times do
       @alive_and_dead.pop
       @alive_and_dead.unshift('o')
     end

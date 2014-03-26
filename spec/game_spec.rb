@@ -48,13 +48,13 @@ describe Game do
     end
   end
 
-  context '#alive_neighbours' do
+  context '#alive_neighbors' do
     (0..8).each do |neighbour_count|
       context "#{neighbour_count} of them" do
         TestBoardGenerator.new(neighbour_count).permutations do |board_file|
           subject {  Game.new(board_file) }
           it "should find #{neighbour_count}" do
-            expect(Game.new(file:board_file).alive_neighbours(1, 1)).to eql(neighbour_count)
+            expect(Game.new(file:board_file).alive_neighbors(1, 1)).to eql(neighbour_count)
           end
         end
       end

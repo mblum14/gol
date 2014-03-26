@@ -26,13 +26,13 @@ class Game
   def next!
     cells.each_with_index do |row, y|
       row.each_with_index do |cell, x|
-        cell.neighbors = alive_neighbours(y, x)
+        cell.number_of_neighbors = alive_neighbors(y, x)
       end
     end
     cells.flatten.map(&:next!)
   end
 
-  def alive_neighbours(y, x)
+  def alive_neighbors(y, x)
     [[-1, 0], [1, 0],
      [-1, 1], [0, 1], [1, 1],
      [-1, -1], [0, -1], [1, -1]

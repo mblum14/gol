@@ -37,49 +37,49 @@ describe Cell do
       let(:cell) { dead_cell }
 
       it "will remain dead with 0 neighbors" do
-        cell.neighbors = 0
+        cell.number_of_neighbors = 0
         cell.next!
         expect(cell).to_not be_alive
       end
 
       it "will remain dead with 1 neighbor" do
-        cell.neighbors = 1
+        cell.number_of_neighbors = 1
         cell.next!
         expect(cell).to_not be_alive
       end
 
       it "will remain dead with 2 neighbors" do
-        cell.neighbors = 2
+        cell.number_of_neighbors = 2
         cell.next!
         expect(cell).to_not be_alive
       end
 
       it "will become alive with 3 neighbors" do
-        cell.neighbors = 3
+        cell.number_of_neighbors = 3
         cell.next!
         expect(cell).to be_alive
       end
 
       it "will remain dead with 4 neighbors" do
-        cell.neighbors = 4
+        cell.number_of_neighbors = 4
         cell.next!
         expect(cell).to_not be_alive
       end
 
       it "will remain dead with 5 neighbors" do
-        cell.neighbors = 5
+        cell.number_of_neighbors = 5
         cell.next!
         expect(cell).to_not be_alive
       end
 
       it "will remain dead with 6 neighbors" do
-        cell.neighbors = 6
+        cell.number_of_neighbors = 6
         cell.next!
         expect(cell).to_not be_alive
       end
 
       it "will remain dead with 7 neighbors" do
-        cell.neighbors = 7
+        cell.number_of_neighbors = 7
         cell.next!
         expect(cell).to_not be_alive
       end
@@ -89,49 +89,49 @@ describe Cell do
       let(:cell) { live_cell }
 
       it "will be dead with 0 neighbors" do
-        cell.neighbors = 0
+        cell.number_of_neighbors = 0
         cell.next!
         expect(cell).to_not be_alive
       end
 
       it "will be dead with 1 neighbor" do
-        cell.neighbors = 1
+        cell.number_of_neighbors = 1
         cell.next!
         expect(cell).to_not be_alive
       end
 
       it "will remain alive with 2 neighbors" do
-        cell.neighbors = 2
+        cell.number_of_neighbors = 2
         cell.next!
         expect(cell).to be_alive
       end
 
       it "will remain alive with 3 neighbors" do
-        cell.neighbors = 3
+        cell.number_of_neighbors = 3
         cell.next!
         expect(cell).to be_alive
       end
 
       it "will be dead with 4 neighbors" do
-        cell.neighbors = 4
+        cell.number_of_neighbors = 4
         cell.next!
         expect(cell).to_not be_alive
       end
 
       it "will be dead with 5 neighbors" do
-        cell.neighbors = 5
+        cell.number_of_neighbors = 5
         cell.next!
         expect(cell).to_not be_alive
       end
 
       it "will be dead with 6 neighbors" do
-        cell.neighbors = 6
+        cell.number_of_neighbors = 6
         cell.next!
         expect(cell).to_not be_alive
       end
 
       it "will be dead with 7 neighbors" do
-        cell.neighbors = 7
+        cell.number_of_neighbors = 7
         cell.next!
         expect(cell).to_not be_alive
       end
