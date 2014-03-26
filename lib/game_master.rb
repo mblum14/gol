@@ -1,6 +1,4 @@
-unless defined? Cell
-  require File.join(File.dirname(__FILE__), 'cell')
-end
+require File.join(File.dirname(__FILE__), 'cell')
 
 class GameMaster
   def self.import_board!(game, file, cycles)
@@ -13,9 +11,12 @@ class GameMaster
     game.seed_cells!(board)
   end
 
-  def self.initialize_board!(game, width, height, cycles, seed_probability)
-    game.width, game.height, game.cycles = width.to_i, height.to_i, cycles.to_i
-    game.cells = Array.new(game.height) { Array.new(game.width) { Cell.new(seed_probability.to_f) } }
+  def self.initialize_board!(game, width, height, seed_probability, cycles)
+    game.width  = width.to_i
+    game.height = height.to_i
+    game.cycles = cycles.to_i
+    game.cells  = Array.new(game.height) { Array.new(game.width) { Cell.new(seed_probability.to_f) } }
+    game
   end
 
 

@@ -1,9 +1,5 @@
-unless defined? Cell
-  require File.join(File.dirname(__FILE__), 'cell')
-end
-unless defined? GameMaster
-  require File.join(File.dirname(__FILE__), 'game_master')
-end
+require File.join(File.dirname(__FILE__), 'cell')
+require File.join(File.dirname(__FILE__), 'game_master')
 
 class Game
   attr_accessor :width, :height, :cycles, :cells
