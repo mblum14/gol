@@ -2,8 +2,8 @@ require 'spec_helper'
 require File.join(File.dirname(__FILE__), '../lib', 'cell')
 
 describe Cell do
-  let(:live_cell) { Cell.new(1) }
-  let(:dead_cell) { Cell.new(0) }
+  let(:live_cell) { Cell.new(0, 0, 1) }
+  let(:dead_cell) { Cell.new(0, 0, 0) }
 
   describe "initialization" do
     it 'initializes a cell with a probability to be alive' do
@@ -29,6 +29,21 @@ describe Cell do
 
     it "is represented by a space if it is dead" do
       expect(dead_cell.to_s).to eql(' ')
+    end
+  end
+
+  describe '#count_neighbors!' do
+    (0..8).each do |neighbor_count|
+      context "#{neighbor_count} of them" do
+        TestBoardGenerator.new(neighbor_count).permutations do |board_file|
+          it "should find #{neighbor_count}" do
+            board = Board.new(file: board_file)
+            cell = Cell.new(1, 1, 1)
+            cell.count_neighbors!(board)
+            expect(cell.number_of_neighbors).to eql(neighbor_count)
+          end
+        end
+      end
     end
   end
 

@@ -6,9 +6,9 @@ describe Game do
     context "directly" do
       subject { Game.new(width: 5, height: 4, seed_probability: 1.0, cycles: 1) }
 
-      its(:height) { should eql(4) }
-      its(:width)  { should eql(5) }
-      its(:cycles)  { should eql(1) }
+      its('board.height') { should eql(4) }
+      its('board.width')  { should eql(5) }
+      its(:cycles)        { should eql(1) }
     end
 
     context "from a file" do
@@ -20,9 +20,10 @@ describe Game do
 
       context "that is valid" do
         subject { Game.new(file: file) }
-        its(:height) { should eql(3) }
-        its(:width)  { should eql(3) }
-        its(:cycles)  { should eql(100) }
+
+        its('board.height') { should eql(3) }
+        its('board.width')  { should eql(3) }
+        its(:cycles)        { should eql(100) }
       end
 
       context "that specifies no rows" do
@@ -48,16 +49,4 @@ describe Game do
     end
   end
 
-  context '#alive_neighbors' do
-    (0..8).each do |neighbour_count|
-      context "#{neighbour_count} of them" do
-        TestBoardGenerator.new(neighbour_count).permutations do |board_file|
-          subject {  Game.new(board_file) }
-          it "should find #{neighbour_count}" do
-            expect(Game.new(file:board_file).alive_neighbors(1, 1)).to eql(neighbour_count)
-          end
-        end
-      end
-    end
-  end
 end

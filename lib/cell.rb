@@ -1,8 +1,18 @@
 class Cell
-  attr_writer :number_of_neighbors
 
-  def initialize(seed_probability)
+  attr_accessor :number_of_neighbors
+
+  def initialize(x, y, seed_probability)
+    @x     = x
+    @y     = y
     @alive = seed_probability > rand
+  end
+
+  def count_neighbors!(board)
+    @number_of_neighbors = [-1, -1, 0, 1, 1].permutation(2).to_a.uniq.inject(0) do |sum, offset|
+      y_offset, x_offset = offset
+      sum + board.cells[(@y + y_offset) % board.height][(@x + x_offset) % board.width].to_i
+    end
   end
 
   def next!

@@ -2,7 +2,7 @@ require 'bundler'
 Bundler.require
 require File.join(File.dirname(__FILE__), 'lib', 'cell')
 require File.join(File.dirname(__FILE__), 'lib', 'game')
-require File.join(File.dirname(__FILE__), 'lib', 'game_master')
+require File.join(File.dirname(__FILE__), 'lib', 'board')
 
 def usage message
   $stderr.puts(message)
